@@ -5,6 +5,7 @@ const p = @import("entities/player.zig");
 pub fn main() anyerror!void {
     // Initialization
     //--------------------------------------------------------------------------------------
+
     const screenWidth = 800;
     const screenHeight = 450;
 
@@ -13,6 +14,7 @@ pub fn main() anyerror!void {
 
     rl.setTargetFPS(60); // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
+
     const camera = rl.Camera2D{
         .offset = rl.Vector2{ .x = 0, .y = 0 },
         .rotation = 0,
@@ -22,23 +24,12 @@ pub fn main() anyerror!void {
 
     var player = p.Player{};
 
-    var rect = rl.Rectangle{
-        .height = 40,
-        .width = 40,
-        .x = player.position.x,
-        .y = player.position.y,
-    };
-
     // Main game loop
-    while (!rl.windowShouldClose()) { // Detect window close button or ESC key
-
+    while (!rl.windowShouldClose()) {
         const deltaTime = rl.getFrameTime();
 
         player.controls();
         player.update(deltaTime);
-
-        rect.x = player.position.x;
-        rect.y = player.position.y;
 
         rl.clearBackground(rl.Color.white);
 
@@ -47,7 +38,7 @@ pub fn main() anyerror!void {
 
         rl.beginMode2D(camera);
         {
-            rl.drawRectangleRec(rect, rl.Color.red);
+            rl.drawRectangleRec(player.rect, rl.Color.red);
         }
         rl.endMode2D();
     }

@@ -5,6 +5,7 @@ const PLAYER_CONST_VEL = 200;
 pub const Player = struct {
     position: rl.Vector2 = rl.Vector2{ .x = 0, .y = 0 },
     velocity: rl.Vector2 = rl.Vector2{ .x = 0, .y = 0 },
+    rect: rl.Rectangle = rl.Rectangle{ .height = 40, .width = 40, .x = 0, .y = 0 },
 
     pub fn controls(self: *Player) void {
         self.velocity.x = 0;
@@ -22,5 +23,8 @@ pub const Player = struct {
     pub fn update(self: *Player, delta: f32) void {
         self.position.x += self.velocity.x * delta;
         self.position.y += self.velocity.y * delta;
+
+        self.rect.x = self.position.x;
+        self.rect.y = self.position.y;
     }
 };
