@@ -32,8 +32,6 @@ pub const EntityManager = struct {
 
         try self.entities.append(entity);
 
-        std.debug.print("{}", .{self.signatures.capacity()});
-
         const new_ptr = try self.allocator.create(Signature);
         new_ptr.* = Signature.initEmpty();
 

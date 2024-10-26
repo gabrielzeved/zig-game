@@ -1,9 +1,9 @@
-const transform = @import("./components/transform.zig");
 const std = @import("std");
-const Entity = @import("./entity.zig").Entity;
+const Entity = @import("entity.zig").Entity;
 
 pub const ComponentType = enum {
     Transform,
+    BoxRender,
 
     pub fn getComponentType(comptime T: type) ?ComponentType {
         const typeName = ComponentType.getSimpleName(T);

@@ -77,7 +77,7 @@ pub const SystemManager = struct {
     }
 
     pub fn signatureChanged(self: *Self, entity: Entity, entitySignature: Signature) void {
-        const iterator = self.systems.iterator();
+        var iterator = self.systems.iterator();
 
         while (iterator.next()) |entry| {
             const system: *System(anyopaque) = @ptrCast(@alignCast(entry.value_ptr.*));
@@ -86,11 +86,11 @@ pub const SystemManager = struct {
             const signature: *Signature = self.signatures.get(key).?;
 
             if ((entitySignature.mask & signature.mask) == signature.mask) {
-                system.entities.append(entity);
+                system.entities.append(entity) catch @panic("Could not add entity to system array");
             } else {
                 for (system.entities.items, 0..) |item, index| {
                     if (entity == item) {
-                        system.entities.swapRemove(index);
+                        _ = system.entities.swapRemove(index);
                         return;
                     }
                 }
@@ -102,15 +102,15 @@ pub const SystemManager = struct {
 pub const Coordinator = struct {
     const Self = @This();
 
-    componentManager: *ComponentManager,
-    systemManager: *SystemManager,
-    entityManager: *EntityManager,
+    componentManager: ComponentManager,
+    systemManager: SystemManager,
+    entityManager: EntityManager,
 
     pub fn init(allocator: std.mem.Allocator) Coordinator {
         return .{
-            .componentManager = @constCast(&ComponentManager.init(allocator)),
-            .systemManager = @constCast(&SystemManager.init(allocator)),
-            .entityManager = @constCast(&EntityManager.init(allocator)),
+            .componentManager = ComponentManager.init(allocator),
+            .systemManager = SystemManager.init(allocator),
+            .entityManager = EntityManager.init(allocator),
         };
     }
 
@@ -135,7 +135,7 @@ pub const Coordinator = struct {
         const signature = self.entityManager.getSignature(entity);
         signature.set(@intFromEnum(componentType));
 
-        self.systemManager.signatureChanged(entity, signature);
+        self.systemManager.signatureChanged(entity, signature.*);
     }
 
     pub fn removeComponent(self: *Self, entity: Entity, comptime T: type) void {
