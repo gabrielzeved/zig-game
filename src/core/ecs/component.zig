@@ -3,7 +3,8 @@ const Entity = @import("entity.zig").Entity;
 
 pub const ComponentType = enum {
     Transform,
-    BoxRender,
+    RigidBody,
+    Sprite,
 
     pub fn getComponentType(comptime T: type) ?ComponentType {
         const typeName = ComponentType.getSimpleName(T);
@@ -142,7 +143,7 @@ pub const ComponentManager = struct {
     }
 
     pub fn getComponentArray(self: *Self, comptime T: type) *ComponentArray(T) {
-        var erasedComponentArray = self.componentArrays.get(@typeName(T)) orelse std.debug.panic("Component array not found", .{});
+        var erasedComponentArray = self.componentArrays.get(@typeName(T)) orelse std.debug.panic("Component array not found. Maybe you forgot to register the new component", .{});
 
         const componentArray: *ComponentArray(T) = erasedComponentArray.cast(T);
 

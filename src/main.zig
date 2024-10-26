@@ -7,50 +7,11 @@ const Entity = @import("core/ecs/entity.zig").Entity;
 const Signature = @import("core/ecs/entity.zig").Signature;
 
 const Transform = @import("components/transform.zig").Transform;
-const BoxRender = @import("components/box_render.zig").BoxRender;
+const RigidBody = @import("components/rigid_body.zig").RigidBody;
+const Sprite = @import("components/sprite.zig").Sprite;
 
-var coordinator = Coordinator.init(std.heap.page_allocator);
-
-const BoxRenderSystem = struct {
-    pub const components = [_]ComponentType{
-        ComponentType.Transform,
-        ComponentType.BoxRender,
-    };
-
-    pub fn update(e: Entity, _: f32) void {
-        var boxRender = coordinator.getComponent(e, BoxRender).?;
-        const transform = coordinator.getComponent(e, Transform).?;
-
-        boxRender.rect.x = transform.position.x;
-        boxRender.rect.y = transform.position.y;
-
-        rl.drawRectangleRec(boxRender.rect, rl.Color.red);
-    }
-};
-
-pub const CharacterController = struct {
-    pub const components = [_]ComponentType{
-        ComponentType.Transform,
-    };
-
-    pub fn update(e: Entity, delta: f32) void {
-        const transform = coordinator.getComponent(e, Transform).?;
-
-        transform.velocity.x = 0;
-        transform.velocity.y = 0;
-
-        if (rl.isKeyDown(rl.KeyboardKey.key_d)) transform.velocity.x += 1;
-        if (rl.isKeyDown(rl.KeyboardKey.key_a)) transform.velocity.x -= 1;
-        if (rl.isKeyDown(rl.KeyboardKey.key_w)) transform.velocity.y -= 1;
-        if (rl.isKeyDown(rl.KeyboardKey.key_s)) transform.velocity.y += 1;
-
-        transform.velocity = transform.velocity.normalize();
-        transform.velocity = transform.velocity.scale(200);
-
-        transform.position.x += transform.velocity.x * delta;
-        transform.position.y += transform.velocity.y * delta;
-    }
-};
+const CharacterController = @import("systems/character_controller.zig").CharacterController;
+const SpriteRenderer = @import("systems/sprite_renderer.zig").SpriteRenderer;
 
 pub fn main() anyerror!void {
     // Initialization
@@ -72,17 +33,22 @@ pub fn main() anyerror!void {
         .zoom = 1,
     };
 
-    coordinator.registerComponent(Transform);
-    coordinator.registerComponent(BoxRender);
+    var coordinator = Coordinator.init(std.heap.page_allocator);
 
-    const boxRenderSystem = coordinator.registerSystem(BoxRenderSystem);
+    coordinator.registerComponent(Transform);
+    coordinator.registerComponent(RigidBody);
+    coordinator.registerComponent(Sprite);
+
+    const spriteRenderer = coordinator.registerSystem(SpriteRenderer);
     const characterControllerSystem = coordinator.registerSystem(CharacterController);
 
     const e = coordinator.createEntity();
-    coordinator.addComponent(e, Transform{
-        .velocity = rl.Vector2{ .x = 10, .y = 15 },
-    });
-    coordinator.addComponent(e, BoxRender{});
+    coordinator.addComponent(e, Transform{});
+    coordinator.addComponent(e, RigidBody{});
+    coordinator.addComponent(
+        e,
+        Sprite.init("assets/test.png"),
+    );
 
     // Main game loop
     while (!rl.windowShouldClose()) {
@@ -95,8 +61,8 @@ pub fn main() anyerror!void {
 
         rl.beginMode2D(camera);
         {
-            boxRenderSystem.update(deltaTime);
-            characterControllerSystem.update(deltaTime);
+            spriteRenderer.update(&coordinator, deltaTime);
+            characterControllerSystem.update(&coordinator, deltaTime);
             rl.drawFPS(10, 10);
         }
         rl.endMode2D();

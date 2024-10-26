@@ -15,9 +15,9 @@ pub fn System(comptime T: type) type {
             };
         }
 
-        pub fn update(self: *System(T), delta: f32) void {
+        pub fn update(self: *System(T), coordinator: *Coordinator, delta: f32) void {
             for (self.entities.items) |entity| {
-                T.update(entity, delta);
+                T.update(coordinator, entity, delta);
             }
         }
     };
@@ -51,6 +51,7 @@ pub const SystemManager = struct {
 
         var signature = Signature.initEmpty();
 
+        // TODO: CHANGE THE COMPONENTS TYPE TO STORE AN ARRAY OF THE COMPONENT ITSELF INSTED OF THE ENUM
         for (T.components) |component| {
             const index = @intFromEnum(component);
             signature.set(index);
