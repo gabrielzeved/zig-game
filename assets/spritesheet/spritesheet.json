@@ -1,0 +1,322 @@
+{ "frames": {
+   "#charIdle-Shoot-Gun-0": {
+    "frame": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#charIdle-Shoot-Gun-1": {
+    "frame": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#charIdle-Shoot-Gun-2": {
+    "frame": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#charIdle-Shoot-Gun-3": {
+    "frame": { "x": 48, "y": 0, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#charIdle-Shoot-Gun-4": {
+    "frame": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#charIdle-Shoot-Gun-5": {
+    "frame": { "x": 96, "y": 0, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-0": {
+    "frame": { "x": 0, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-1": {
+    "frame": { "x": 0, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-2": {
+    "frame": { "x": 0, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-3": {
+    "frame": { "x": 48, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-4": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-5": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-6": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-7": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-8": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-9": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-10": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-11": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-12": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#CharReload-Gun-13": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 80
+   },
+   "#Char-Idle-Empty-0": {
+    "frame": { "x": 96, "y": 30, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 120
+   },
+   "#Char-Idle-Empty-1": {
+    "frame": { "x": 0, "y": 60, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 120
+   },
+   "#Char-Idle-Empty-2": {
+    "frame": { "x": 48, "y": 60, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 120
+   },
+   "#Char-Idle-Empty-3": {
+    "frame": { "x": 96, "y": 60, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 120
+   },
+   "#Char-Run-Empty-0": {
+    "frame": { "x": 0, "y": 90, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 96
+   },
+   "#Char-Run-Empty-1": {
+    "frame": { "x": 48, "y": 90, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 96
+   },
+   "#Char-Run-Empty-2": {
+    "frame": { "x": 96, "y": 90, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 96
+   },
+   "#Char-Run-Empty-3": {
+    "frame": { "x": 144, "y": 90, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 96
+   },
+   "#Char-Run-Empty-4": {
+    "frame": { "x": 192, "y": 90, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 96
+   },
+   "#Char-Run-Empty-5": {
+    "frame": { "x": 0, "y": 90, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 96
+   },
+   "#Char-Run-Empty-6": {
+    "frame": { "x": 240, "y": 90, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 96
+   },
+   "#ZombieWalk-0": {
+    "frame": { "x": 0, "y": 120, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 110
+   },
+   "#ZombieWalk-1": {
+    "frame": { "x": 48, "y": 120, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 110
+   },
+   "#ZombieWalk-2": {
+    "frame": { "x": 96, "y": 120, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 110
+   },
+   "#ZombieWalk-3": {
+    "frame": { "x": 96, "y": 120, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 110
+   },
+   "#ZombieWalk-4": {
+    "frame": { "x": 144, "y": 120, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 110
+   },
+   "#ZombieWalk-5": {
+    "frame": { "x": 192, "y": 120, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 110
+   },
+   "#ZombieWalk-6": {
+    "frame": { "x": 240, "y": 120, "w": 48, "h": 30 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 30 },
+    "sourceSize": { "w": 48, "h": 30 },
+    "duration": 110
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.21-dev",
+  "image": "assets/spritesheet/spritesheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 288, "h": 150 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "charIdle-Shoot-Gun", "from": 0, "to": 5, "direction": "forward" },
+   { "name": "CharReload-Gun", "from": 6, "to": 19, "direction": "forward" },
+   { "name": "Char-Idle-Empty", "from": 20, "to": 23, "direction": "forward" },
+   { "name": "Char-Run-Empty", "from": 24, "to": 30, "direction": "forward" },
+   { "name": "ZombieWalk", "from": 31, "to": 37, "direction": "forward" }
+  ]
+ }
+}

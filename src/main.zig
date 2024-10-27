@@ -9,9 +9,13 @@ const Signature = @import("core/ecs/entity.zig").Signature;
 const Transform = @import("components/transform.zig").Transform;
 const RigidBody = @import("components/rigid_body.zig").RigidBody;
 const Sprite = @import("components/sprite.zig").Sprite;
+const AnimatedSprite = @import("components/animated_sprite.zig").AnimatedSprite;
 
 const CharacterController = @import("systems/character_controller.zig").CharacterController;
 const SpriteRenderer = @import("systems/sprite_renderer.zig").SpriteRenderer;
+const AnimatedSpriteRenderer = @import("systems/animated_sprite_renderer.zig").AnimatedSpriteRenderer;
+
+const aseprite = @import("core/aseprite/parser.zig");
 
 pub fn main() anyerror!void {
     // Initialization
@@ -38,8 +42,10 @@ pub fn main() anyerror!void {
     coordinator.registerComponent(Transform);
     coordinator.registerComponent(RigidBody);
     coordinator.registerComponent(Sprite);
+    coordinator.registerComponent(AnimatedSprite);
 
-    const spriteRenderer = coordinator.registerSystem(SpriteRenderer);
+    // const spriteRenderer = coordinator.registerSystem(SpriteRenderer);
+    const animatedSpriteRenderer = coordinator.registerSystem(AnimatedSpriteRenderer);
     const characterControllerSystem = coordinator.registerSystem(CharacterController);
 
     const e = coordinator.createEntity();
@@ -47,7 +53,10 @@ pub fn main() anyerror!void {
     coordinator.addComponent(e, RigidBody{});
     coordinator.addComponent(
         e,
-        Sprite.init("assets/test.png"),
+        AnimatedSprite.init(
+            "assets/spritesheet/spritesheet.json",
+            "Char-Run-Empty",
+        ),
     );
 
     // Main game loop
@@ -61,7 +70,8 @@ pub fn main() anyerror!void {
 
         rl.beginMode2D(camera);
         {
-            spriteRenderer.update(&coordinator, deltaTime);
+            animatedSpriteRenderer.update(&coordinator, deltaTime);
+            // spriteRenderer.update(&coordinator, deltaTime);
             characterControllerSystem.update(&coordinator, deltaTime);
             rl.drawFPS(10, 10);
         }

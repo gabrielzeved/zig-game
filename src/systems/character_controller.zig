@@ -25,7 +25,7 @@ pub const CharacterController = struct {
         if (rl.isKeyDown(rl.KeyboardKey.key_s)) rigidBody.velocity.y += 1;
 
         rigidBody.velocity = rigidBody.velocity.normalize();
-        rigidBody.velocity = rigidBody.velocity.scale(200);
+        rigidBody.velocity = rigidBody.velocity.scale(80);
 
         transform.position.x += rigidBody.velocity.x * delta;
         transform.position.y += rigidBody.velocity.y * delta;
