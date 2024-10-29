@@ -10,10 +10,12 @@ const Transform = @import("components/transform.zig").Transform;
 const RigidBody = @import("components/rigid_body.zig").RigidBody;
 const Sprite = @import("components/sprite.zig").Sprite;
 const AnimatedSprite = @import("components/animated_sprite.zig").AnimatedSprite;
+const Gun = @import("components/gun.zig").Gun;
 
 const CharacterController = @import("systems/character_controller.zig").CharacterController;
 const SpriteRenderer = @import("systems/sprite_renderer.zig").SpriteRenderer;
 const AnimatedSpriteRenderer = @import("systems/animated_sprite_renderer.zig").AnimatedSpriteRenderer;
+const GunController = @import("systems/gun_controller.zig").GunController;
 
 const aseprite = @import("core/aseprite/parser.zig");
 
@@ -43,21 +45,49 @@ pub fn main() anyerror!void {
     coordinator.registerComponent(RigidBody);
     coordinator.registerComponent(Sprite);
     coordinator.registerComponent(AnimatedSprite);
+    coordinator.registerComponent(Gun);
 
-    // const spriteRenderer = coordinator.registerSystem(SpriteRenderer);
+    const spriteRenderer = coordinator.registerSystem(SpriteRenderer);
     const animatedSpriteRenderer = coordinator.registerSystem(AnimatedSpriteRenderer);
     const characterControllerSystem = coordinator.registerSystem(CharacterController);
+    const gunController = coordinator.registerSystem(GunController);
 
     const e = coordinator.createEntity();
-    coordinator.addComponent(e, Transform{});
+    coordinator.addComponent(e, Transform{
+        .pivot = rl.Vector2{ .x = 0.5, .y = 0.5 },
+        .size = rl.Vector2{ .x = 2, .y = 2 },
+    });
     coordinator.addComponent(e, RigidBody{});
     coordinator.addComponent(
         e,
         AnimatedSprite.init(
             "assets/spritesheet/spritesheet.json",
-            "Char-Run-Empty",
+            "Char-Idle-Empty",
         ),
     );
+
+    const gun = coordinator.createEntity();
+    coordinator.addComponent(gun, Transform{
+        .parent = e,
+        .size = rl.Vector2{ .x = 0.6, .y = 0.6 },
+        .pivot = rl.Vector2{ .x = 0.5, .y = 0.5 },
+    });
+    coordinator.addComponent(
+        gun,
+        AnimatedSprite.init(
+            "assets/spritesheet/gun.json",
+            "Pistol-Idle",
+        ),
+    );
+    coordinator.addComponent(gun, Gun{
+        .parent = e,
+        .offset = rl.Vector2{ .x = 10, .y = 5 },
+    });
+
+    animatedSpriteRenderer.start(&coordinator);
+    spriteRenderer.start(&coordinator);
+    characterControllerSystem.start(&coordinator);
+    gunController.start(&coordinator);
 
     // Main game loop
     while (!rl.windowShouldClose()) {
@@ -71,8 +101,9 @@ pub fn main() anyerror!void {
         rl.beginMode2D(camera);
         {
             animatedSpriteRenderer.update(&coordinator, deltaTime);
-            // spriteRenderer.update(&coordinator, deltaTime);
+            spriteRenderer.update(&coordinator, deltaTime);
             characterControllerSystem.update(&coordinator, deltaTime);
+            gunController.update(&coordinator, deltaTime);
             rl.drawFPS(10, 10);
         }
         rl.endMode2D();

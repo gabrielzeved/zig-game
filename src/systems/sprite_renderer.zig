@@ -13,6 +13,8 @@ pub const SpriteRenderer = struct {
         ComponentType.Sprite,
     };
 
+    pub fn start(_: *Coordinator, _: Entity) void {}
+
     pub fn update(coord: *Coordinator, e: Entity, _: f32) void {
         const transform = coord.getComponent(e, Transform).?;
         const sprite = coord.getComponent(e, Sprite).?;

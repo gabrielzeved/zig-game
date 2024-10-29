@@ -6,6 +6,7 @@ pub const ComponentType = enum {
     RigidBody,
     Sprite,
     AnimatedSprite,
+    Gun,
 
     pub fn getComponentType(comptime T: type) ?ComponentType {
         const typeName = ComponentType.getSimpleName(T);

@@ -7,16 +7,22 @@ const ComponentManager = @import("component.zig").ComponentManager;
 
 pub fn System(comptime T: type) type {
     return struct {
-        entities: std.ArrayList(Entity),
+        entities: std.AutoArrayHashMap(Entity, void),
 
         pub fn init(allocator: std.mem.Allocator) System(T) {
             return .{
-                .entities = std.ArrayList(Entity).init(allocator),
+                .entities = std.AutoArrayHashMap(Entity, void).init(allocator),
             };
         }
 
+        pub fn start(self: *System(T), coordinator: *Coordinator) void {
+            for (self.entities.keys()) |entity| {
+                T.start(coordinator, entity);
+            }
+        }
+
         pub fn update(self: *System(T), coordinator: *Coordinator, delta: f32) void {
-            for (self.entities.items) |entity| {
+            for (self.entities.keys()) |entity| {
                 T.update(coordinator, entity, delta);
             }
         }
@@ -49,15 +55,16 @@ pub const SystemManager = struct {
             new_ptr,
         ) catch @panic("Was not able to put System inside the map");
 
-        var signature = Signature.initEmpty();
+        const signture_ptr = self.allocator.create(Signature) catch @panic("Was not able to allocate memory for Signature");
+        signture_ptr.* = Signature.initEmpty();
 
         // TODO: CHANGE THE COMPONENTS TYPE TO STORE AN ARRAY OF THE COMPONENT ITSELF INSTED OF THE ENUM
         for (T.components) |component| {
             const index = @intFromEnum(component);
-            signature.set(index);
+            signture_ptr.set(index);
         }
 
-        self.signatures.put(typeName, &signature) catch @panic("Was not able to put Signature inside the map");
+        self.signatures.put(typeName, signture_ptr) catch @panic("Was not able to put Signature inside the map");
 
         return new_ptr;
     }
@@ -67,13 +74,7 @@ pub const SystemManager = struct {
 
         while (iterator.next()) |entry| {
             const system: *System(anyopaque) = @ptrCast(@alignCast(entry.value_ptr.*));
-
-            for (system.entities.items, 0..) |item, index| {
-                if (entity == item) {
-                    system.entities.swapRemove(index);
-                    return;
-                }
-            }
+            system.entities.swapRemove(entity);
         }
     }
 
@@ -87,14 +88,9 @@ pub const SystemManager = struct {
             const signature: *Signature = self.signatures.get(key).?;
 
             if ((entitySignature.mask & signature.mask) == signature.mask) {
-                system.entities.append(entity) catch @panic("Could not add entity to system array");
+                system.entities.put(entity, {}) catch @panic("Could not add entity to system array");
             } else {
-                for (system.entities.items, 0..) |item, index| {
-                    if (entity == item) {
-                        _ = system.entities.swapRemove(index);
-                        return;
-                    }
-                }
+                _ = system.entities.swapRemove(entity);
             }
         }
     }

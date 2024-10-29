@@ -77,8 +77,6 @@ pub fn parseSpritesheet(allocator: std.mem.Allocator, input: []const u8) !Sprite
 
     const sheet = parser.value;
 
-    std.debug.print("{s}", .{sheet.meta.image});
-
     return sheet;
 }
 

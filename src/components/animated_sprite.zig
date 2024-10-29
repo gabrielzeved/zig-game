@@ -8,6 +8,9 @@ pub const AnimatedSprite = struct {
     time: f32,
     speed: f32,
 
+    flipX: bool = false,
+    flipY: bool = false,
+
     sheet: spritesheet.Spritesheet,
     currentAnimation: spritesheet.Animation,
     currentFrame: u32,
@@ -46,12 +49,12 @@ pub const AnimatedSprite = struct {
             .currentAnimation = animation,
             .sheet = sheet,
             .currentFrame = animation.from,
-            .speed = 0.5,
+            .speed = 1,
         };
     }
 
     pub fn setFrame(self: *AnimatedSprite, frameIndex: u32) void {
-        const frame = self.sheet.frames.map.values()[frameIndex];
+        const frame = &self.sheet.frames.map.values()[frameIndex];
         self.time = @floatFromInt(frame.duration);
         self.currentFrame = frameIndex;
 
@@ -66,5 +69,13 @@ pub const AnimatedSprite = struct {
     pub fn nextFrame(self: *AnimatedSprite) void {
         const nextIndex = ((self.currentFrame - self.currentAnimation.from) + 1) % (self.currentAnimation.to - self.currentAnimation.from + 1) + self.currentAnimation.from;
         self.setFrame(nextIndex);
+    }
+
+    pub fn setAnimation(self: *AnimatedSprite, animationName: []const u8) void {
+        if (std.mem.eql(u8, animationName, self.currentAnimation.name)) return;
+
+        const animation = self.sheet.getAnimation(animationName).?;
+        self.currentAnimation = animation;
+        self.setFrame(animation.from);
     }
 };
