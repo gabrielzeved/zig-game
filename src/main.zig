@@ -17,6 +17,9 @@ const SpriteRenderer = @import("systems/sprite_renderer.zig").SpriteRenderer;
 const AnimatedSpriteRenderer = @import("systems/animated_sprite_renderer.zig").AnimatedSpriteRenderer;
 const GunController = @import("systems/gun_controller.zig").GunController;
 
+const ParticleSystem = @import("core/particle_system/particle_system.zig").ParticleSystem(900);
+const Particle = @import("core/particle_system/particle_system.zig").Particle;
+
 const aseprite = @import("core/aseprite/parser.zig");
 
 pub fn main() anyerror!void {
@@ -79,10 +82,13 @@ pub fn main() anyerror!void {
             "Pistol-Idle",
         ),
     );
-    coordinator.addComponent(gun, Gun{
-        .parent = e,
-        .offset = rl.Vector2{ .x = 10, .y = 5 },
-    });
+    coordinator.addComponent(
+        gun,
+        Gun.init(
+            e,
+            rl.Vector2{ .x = 10, .y = 5 },
+        ),
+    );
 
     animatedSpriteRenderer.start(&coordinator);
     spriteRenderer.start(&coordinator);
