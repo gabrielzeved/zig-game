@@ -16,11 +16,13 @@ const CharacterController = @import("systems/character_controller.zig").Characte
 const SpriteRenderer = @import("systems/sprite_renderer.zig").SpriteRenderer;
 const AnimatedSpriteRenderer = @import("systems/animated_sprite_renderer.zig").AnimatedSpriteRenderer;
 const GunController = @import("systems/gun_controller.zig").GunController;
+const RigidBodySystem = @import("systems/rigid_body_system.zig").RigidBodySystem;
 
 const ParticleSystem = @import("core/particle_system/particle_system.zig").ParticleSystem(900);
 const Particle = @import("core/particle_system/particle_system.zig").Particle;
 
 const aseprite = @import("core/aseprite/parser.zig");
+const Tilemap = @import("core/tilemap/tilemap.zig").Tilemap;
 
 pub fn main() anyerror!void {
     // Initialization
@@ -35,14 +37,19 @@ pub fn main() anyerror!void {
     rl.setTargetFPS(120); // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
-    const camera = rl.Camera2D{
-        .offset = rl.Vector2{ .x = 0, .y = 0 },
+    var camera = rl.Camera2D{
+        .offset = rl.Vector2{
+            .x = screenWidth / 2,
+            .y = screenHeight / 2,
+        },
         .rotation = 0,
         .target = rl.Vector2{ .x = 0, .y = 0 },
         .zoom = 1,
     };
 
-    var coordinator = Coordinator.init(std.heap.page_allocator);
+    var coordinator: *Coordinator = @constCast(&Coordinator.init(std.heap.page_allocator));
+
+    var tilemap = try Tilemap.fromFile(std.heap.page_allocator, "assets/map/map.json");
 
     coordinator.registerComponent(Transform);
     coordinator.registerComponent(RigidBody);
@@ -54,6 +61,7 @@ pub fn main() anyerror!void {
     const animatedSpriteRenderer = coordinator.registerSystem(AnimatedSpriteRenderer);
     const characterControllerSystem = coordinator.registerSystem(CharacterController);
     const gunController = coordinator.registerSystem(GunController);
+    const rigidBodySystem = coordinator.registerSystem(RigidBodySystem);
 
     const e = coordinator.createEntity();
     coordinator.addComponent(e, Transform{
@@ -66,6 +74,7 @@ pub fn main() anyerror!void {
         AnimatedSprite.init(
             "assets/spritesheet/spritesheet.json",
             "Char-Idle-Empty",
+            coordinator,
         ),
     );
 
@@ -80,6 +89,7 @@ pub fn main() anyerror!void {
         AnimatedSprite.init(
             "assets/spritesheet/gun.json",
             "Pistol-Idle",
+            coordinator,
         ),
     );
     coordinator.addComponent(
@@ -87,31 +97,38 @@ pub fn main() anyerror!void {
         Gun.init(
             e,
             rl.Vector2{ .x = 10, .y = 5 },
+            &camera,
+            coordinator,
         ),
     );
 
-    animatedSpriteRenderer.start(&coordinator);
-    spriteRenderer.start(&coordinator);
-    characterControllerSystem.start(&coordinator);
-    gunController.start(&coordinator);
+    rigidBodySystem.start(coordinator);
+    animatedSpriteRenderer.start(coordinator);
+    spriteRenderer.start(coordinator);
+    characterControllerSystem.start(coordinator);
+    gunController.start(coordinator);
 
     // Main game loop
     while (!rl.windowShouldClose()) {
         const deltaTime = rl.getFrameTime();
-
         rl.clearBackground(rl.Color.white);
-
         rl.beginDrawing();
         defer rl.endDrawing();
 
+        const playerTransform = coordinator.getComponent(e, Transform).?;
+        const targetPosition = playerTransform.position;
+        camera.target = camera.target.lerp(targetPosition, deltaTime * 3);
+
         rl.beginMode2D(camera);
         {
-            animatedSpriteRenderer.update(&coordinator, deltaTime);
-            spriteRenderer.update(&coordinator, deltaTime);
-            characterControllerSystem.update(&coordinator, deltaTime);
-            gunController.update(&coordinator, deltaTime);
-            rl.drawFPS(10, 10);
+            tilemap.draw(coordinator);
+            rigidBodySystem.update(coordinator, deltaTime);
+            animatedSpriteRenderer.update(coordinator, deltaTime);
+            spriteRenderer.update(coordinator, deltaTime);
+            characterControllerSystem.update(coordinator, deltaTime);
+            gunController.update(coordinator, deltaTime);
         }
         rl.endMode2D();
+        rl.drawFPS(10, 10);
     }
 }

@@ -4,6 +4,7 @@ const Entity = @import("entity.zig").Entity;
 const EntityManager = @import("entity.zig").EntityManager;
 const ComponentType = @import("component.zig").ComponentType;
 const ComponentManager = @import("component.zig").ComponentManager;
+const AssetLoader = @import("../assets/asset_loader.zig").AssetLoader;
 
 pub fn System(comptime T: type) type {
     return struct {
@@ -102,12 +103,14 @@ pub const Coordinator = struct {
     componentManager: ComponentManager,
     systemManager: SystemManager,
     entityManager: EntityManager,
+    assetLoader: AssetLoader,
 
     pub fn init(allocator: std.mem.Allocator) Coordinator {
-        return .{
+        return Coordinator{
             .componentManager = ComponentManager.init(allocator),
             .systemManager = SystemManager.init(allocator),
             .entityManager = EntityManager.init(allocator),
+            .assetLoader = AssetLoader.init(allocator),
         };
     }
 

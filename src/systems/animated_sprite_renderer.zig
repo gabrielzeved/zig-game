@@ -78,30 +78,3 @@ pub const AnimatedSpriteRenderer = struct {
         );
     }
 };
-
-// const worldPos = transform.getWorldPosition(coord);
-// const worldRotation = transform.getWorldRotation(coord);
-// const worldScale = transform.getWorldScale(coord);
-
-// var source = rl.Rectangle{
-//     .height = sprite.rectangle.height,
-//     .width = sprite.rectangle.width,
-//     .x = sprite.rectangle.x,
-//     .y = sprite.rectangle.y,
-// };
-
-// if (worldScale.x < 0) {
-//     source.width = -sprite.rectangle.width;
-// }
-
-// const dest = rl.Rectangle{
-//     .x = worldPos.x,
-//     .y = worldPos.y,
-//     .width = sprite.rectangle.width * worldScale.x,
-//     .height = sprite.rectangle.height * worldScale.y,
-// };
-
-// const origin = rl.Vector2{
-//     .x = transform.pivot.x * source.width,
-//     .y = transform.pivot.y * source.height,
-// };

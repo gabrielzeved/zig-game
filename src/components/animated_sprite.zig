@@ -1,6 +1,8 @@
 const rl = @import("raylib");
 const std = @import("std");
 const spritesheet = @import("../core/aseprite/parser.zig");
+const Coordinator = @import("../core/ecs/system.zig").Coordinator;
+const string = @import("../utils/string.zig");
 
 pub const AnimatedSprite = struct {
     texture: rl.Texture2D,
@@ -15,25 +17,13 @@ pub const AnimatedSprite = struct {
     currentAnimation: spritesheet.Animation,
     currentFrame: u32,
 
-    pub fn init(file: []const u8, initialAnimation: []const u8) AnimatedSprite {
+    pub fn init(file: []const u8, initialAnimation: []const u8, coordinator: *Coordinator) AnimatedSprite {
         const sheet = spritesheet.fromFile(
             std.heap.page_allocator,
             file,
         ) catch @panic("Could not load the spritesheet");
 
-        const allocator = std.heap.page_allocator;
-        const imagePathLength = sheet.meta.image.len + 1;
-
-        var imagePath = allocator.alloc(u8, imagePathLength) catch @panic("Could not allocate memory for temporary string");
-        defer allocator.free(imagePath);
-
-        for (sheet.meta.image, 0..) |char, i| {
-            imagePath[i] = char;
-        }
-
-        imagePath[sheet.meta.image.len] = 0;
-
-        const texture = rl.loadTexture(@ptrCast(imagePath.ptr));
+        const texture = coordinator.assetLoader.getTexture(string.nullTerminatedString(sheet.meta.image));
         const animation = sheet.getAnimation(initialAnimation).?;
         const initialFrame = sheet.frames.map.values()[animation.from];
 

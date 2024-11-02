@@ -17,8 +17,7 @@ pub const CharacterController = struct {
 
     pub fn start(_: *Coordinator, _: Entity) void {}
 
-    pub fn update(coord: *Coordinator, e: Entity, delta: f32) void {
-        const transform = coord.getComponent(e, Transform).?;
+    pub fn update(coord: *Coordinator, e: Entity, _: f32) void {
         const rigidBody = coord.getComponent(e, RigidBody).?;
         const sprite = coord.getComponent(e, AnimatedSprite).?;
 
@@ -38,8 +37,5 @@ pub const CharacterController = struct {
         } else {
             sprite.setAnimation("Char-Run-Empty");
         }
-
-        transform.position.x += rigidBody.velocity.x * delta;
-        transform.position.y += rigidBody.velocity.y * delta;
     }
 };
