@@ -78,6 +78,20 @@ pub fn main() anyerror!void {
         ),
     );
 
+    const enemy = coordinator.createEntity();
+    coordinator.addComponent(enemy, Transform{
+        .pivot = rl.Vector2{ .x = 0.5, .y = 0.5 },
+        .size = rl.Vector2{ .x = 2, .y = 2 },
+    });
+    coordinator.addComponent(
+        enemy,
+        AnimatedSprite.init(
+            "assets/spritesheet/spritesheet.json",
+            "ZombieWalk",
+            coordinator,
+        ),
+    );
+
     const gun = coordinator.createEntity();
     coordinator.addComponent(gun, Transform{
         .parent = e,

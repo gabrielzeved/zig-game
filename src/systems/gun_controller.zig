@@ -54,7 +54,7 @@ pub const GunController = struct {
                 .velocity = rl.Vector2{ .x = 0, .y = -100 },
                 .velocityVariation = rl.Vector2{ .x = 100, .y = 0 },
                 .rotation = 0,
-                .lifetime = 1,
+                .lifetime = 2,
             });
 
             const direction = rl.Vector2{ .x = mousePosition.x - parentTransform.position.x, .y = mousePosition.y - parentTransform.position.y };
